@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Assignment 3</title>
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="refresh" content="5" > -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CHANGE ME">
+        <meta name="keywords" content="CHANGE ME">
+        <meta name="author" content="Nigel Davis">
+        <!-- Load jquery, bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh3U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <!-- Custom CSS End -->
+    </head>
+    <body>
+    <!-- Login Form -->
+        <div id="login-background"></div>
+        <form id='loginForm' action='/login' method='post' encType="multipart/form-data">
+            <div class="input-container input-form login-form">
+                <div>
+                    <label class="label" for="user">Username: </label>
+                    <input type="text" name="user" required>
+                </div>
+                <div>
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" required>
+                </div>
+                <div>
+                    <label for="host">Host: </label>
+                    <input type="text" name="host" value="dursley.socs.uoguelph.ca" required>
+                </div>
+                <div>
+                    <label for="database">Database: </label>
+                    <input type="text" name="database" required>
+                </div>
+                <div class="form-button-container" id="login-button-container">
+                    <input type='submit' value='Login' class="button">
+                    <input id="ignoreButton" type='button' value='Continue Without Logging in' class="button" onclick="coninueWithoutLogin();">
+                </div>
+            </div>
+        </form>
+        <div class="main">
+            <h2 id="title">GPX Data Viewer</h2>
+    <!-- File Log Panel and Table -->
+            <section class="file-log-panel">
+                <h3 id="file-log-title">File Log</h3>
+                <div class="table-container">
+                    <table>
+                        <colgroup>
+                            <col span="1" class="flcol1">
+                            <col span="1" class="flcol2">
+                            <col span="1" class="flcol3">
+                            <col span="1" class="flcol4">
+                            <col span="1" class="flcol5">
+                            <col span="1" class="flcol6">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>File name <i>(click to download)</i></th>
+                                <th>Version</th>
+                                <th>Creator</th>
+                                <th>Number of Waypoints</th>
+                                <th>Number of Routes</th>
+                                <th>Number of Tracks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="file-log-table"></tbody>
+                    </table>
+                </div>
+                <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
+                    <div class="button-container">
+                        <label class="label" for="uploadFile">Upload a File: </label>
+                        <input type="file" name="uploadFile" class="choose-file" id="choose-file-input">
+                        <input type='submit' value='Upload' class="button upload-button" id='upload-button'>
+                    </div>
+                </form>
+            </section>
+    <!-- GPX View Panel -->
+            <section class="gpx-view-panel">
+                <h3 id="gpx-view-title">GPX View</h3>
+                <label class="label" for="gpx-file-picker">Choose File: </label>
+                <select class="file-picker" onchange="changedGPXFile()" name="gpx-file-picker" id="gpx-file-picker">
+                    <option value="default">Select File</option>
+                </select>
+    <!-- GPX View Table -->
+                <div class="table-container" id="gpx-view-table-container">
+                    <table>
+                        <colgroup>
+                            <col span="1" class="gvcol1">
+                            <col span="1" class="gvcol2">
+                            <col span="1" class="gvcol3">
+                            <col span="1" class="gvcol4">
+                            <col span="1" class="gvcol5">
+                            <col span="1" class="gvcol6">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Name</th>
+                                <th>Number of Points</th>
+                                <th>Length</th>
+                                <th>Loop</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="gpx-view-table">
+                            <tr id="gpx-empty-row">
+                                <td class="center-text" colspan="6">No file selected</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+    <!-- Rename Form -->
+            <section class="other-panel">
+                <div>
+                    <form id="renameForm" action='/renameComponent' method='post' encType="multipart/form-data">
+                        <div class="input-container">
+                            <div class="rename-field">
+                                <label id="rename-label" for="name" class="rename-label">Rename: </label>
+                                <input type="text" name="name" id="rename-input">
+                            </div>
+                            <div class="form-button-container">
+                                <input type='submit' value='Rename Component' class="button" id="rename-button">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+    <!-- Create GPX File -->
+            <section class="create-gpx-panel">
+                <h3 id="create-title">Create GPX</h3> 
+                <form id='createGPXForm' action='/createGPX' method='post' encType="multipart/form-data">
+                    <div class="input-container">
+                        <div>
+                            <label for="creator">Creator: </label>
+                            <input type="text" name="creator" required>
+                        </div>
+                        <div>
+                            <label for="version">Version: </label>
+                            <input type="text" value="1.1" name="version" required>
+                        </div>
+                        <div>
+                            <label for="filename">Filename: </label>
+                            <input type="text" name="filename" required>
+                        </div>
+                        <div class="form-button-container" id="create-form-button-container">
+                            <input type='submit' value='Create GPX' class="button">
+                        </div>
+                    </div>
+                </form>
+            </section>
+    <!-- Add Route -->
+            <section class="add-route-panel">
+                <h3 class="add-route-title">Add Route</h3>
+                <form id='addRouteForm' action='/addRoute' method='post' encType="multipart/form-data">
+                    <div class="input-container">
+                        <div>
+                            <label class="label" for="filename">Choose File: </label>
+                            <select class="file-picker" name="filename" id="add-route-file-picker" required>
+                                <option value="">Select File</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="name">Route Name: </label>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="form-button-container" id="create-form-button-container">
+                            <input type='submit' value='Add Route' class="button">
+                        </div>
+                    </div>
+                </form>
+            </section>
+    <!-- Add Waypoint -->
+            <section class="add-waypoint-panel">
+                <h3 class="add-route-title">Add Waypoint to Route</h3>
+                <form id='addWaypointForm' action='/addWaypoint' method='post' encType="multipart/form-data">
+                    <div class="input-container">
+                        <div>
+                            <label class="label" for="filename">Choose File: </label>
+                            <select class="file-picker" onchange="changedAddWptFile()" name="filename" id="add-waypoint-file-picker" required>
+                                <option value="">Select File</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="route">Choose Route: </label>
+                            <select name="route" id="route-picker" required>
+                                <option class="keep-option" value="">Select Route: </option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lat">Latitude: </label>
+                            <input type="number" step="any" name="lat" min="-90" max="90" required>
+                        </div>
+                        <div>
+                            <label for="lon">Longitude: </label>
+                            <input type="number" step="any" name="lon" min="-180" max="180" required>
+                        </div>
+                        <div class="form-button-container" id="create-form-button-container">
+                            <input type='submit' value='Add Waypoint' class="button">
+                        </div>
+                    </div>
+                </form>
+            </section>
+    <!-- Find Path Between -->
+            <section class="find-path-between-panel">
+                <h3 class="fpb-title">Find Path Between</h3>
+                <form id='findPathsForm' action='/findPaths' method='post' enctype="multipart/form-data">
+                    <div class="input-container">
+                        <h4 class="form-subtitle">Start Point</h4>
+                        <div>
+                            <label for="lat1">Latitude: </label>
+                            <input id="lat1-input" type="number" step="any" name="lat1" min="-90" max="90" required>
+                        </div>
+                        <div>
+                            <label for="lon1">Longitude: </label>
+                            <input id="lon1-input" type="number" step="any" name="lon1" min="-180" max="180" required>
+                        </div>
+                        <h4 class="form-subtitle">End Point</h4>
+                        <div>
+                            <label for="lat2">Latitude: </label>
+                            <input id="lat2-input" type="number" step="any" name="lat2" min="-90" max="90" required>
+                        </div>
+                        <div>
+                            <label for="lon2">Longitude: </label>
+                            <input id="lon2-input" type="number" step="any" name="lon2" min="-180" max="180" required>
+                        </div>
+                        <div>
+                            <label for="delta">Accuracy (m): </label>
+                            <input id="delta-input" type="number" step="any" name="delta" min="0" required>
+                        </div>
+                        <div class="form-button-container" id="find-paths-button-container">
+                            <input type='submit' value='Find Path' class="button">
+                        </div>
+                    </div>
+                </form>
+    <!-- Find Path Between Table -->
+                <h4 id="tracks-found-title">Paths Found</h4>
+                <div class="table-container" id="find-paths-table-container">
+                    <table>
+                        <colgroup>
+                            <col span="1" class="fpcol1">
+                            <col span="1" class="fpcol2">
+                            <col span="1" class="fpcol3">
+                            <col span="1" class="fpcol4">
+                            <col span="1" class="fpcol5">
+                            <col span="1" class="fpcol6">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Component</th>
+                                <th>Name</th>
+                                <th>Number of Points</th>
+                                <th>Length</th>
+                                <th>Loop</th>
+                            </tr>
+                        </thead>
+                        <tbody id="find-paths-table"></tbody>
+                    </table>
+                </div>
+            </section>
+    <!-- Get Paths of Length -->
+            <section class="get-paths-of-length-panel">
+                <h3>Get the Number of Paths of a Given Length</h3>
+                <form id="numRoutesForm" action="/getRoutesOfLength" method='get' enctype="multipart/form-data">
+                    <div class="input-container">
+                        <h4 class="form-subtitle">Get Number of Routes of Length</h4>
+                        <div>
+                            <label for="length">Length: </label>
+                            <input id="getRoutesLength" type="number" step="any" name="length" min="0" required>
+                        </div>
+                        <div class="form-button-container" id="rtesOfLengthBtnContainer">
+                            <input type='submit' value="Get Number of Routes" class="button">
+                        </div>
+                    </div>
+                </form>
+                <form id="numTracksForm" action="/getTracksOfLength" method='get' enctype="multipart/form-data">
+                    <div class="input-container">
+                        <h4 class="form-subtitle">Get Number of Tracks of Length</h4>
+                        <div>
+                            <label for="length">Length: </label>
+                            <input id="getTracksLength" type="number" step="any" name="length" min="0" required>
+                        </div>
+                        <div class="form-button-container" id="rtesOfLengthBtnContainer">
+                            <input type='submit' value="Get Number of Tracks" class="button">
+                        </div>
+                    </div>
+                </form>
+            </section>
+    <!-- Database Section -->
+            <h2 id="title">GPX Database</h2>
+            <div id="login-after-button" class="button-container" style="display: none;">
+                <input type='submit' class="button" value='Login' onclick="login();">
+            </div>
+            <section id="database-stuff">
+    <!-- Database Buttons -->
+                <div id="store-all-files" class="button-container">
+                    <input id="store-all" type='submit' class="db-button button" value='Store All Files' onclick="storeAllFiles();">
+                    <input type='submit' class="db-button button" value='Clear All Data' onclick="clearAllData();">
+                    <input type='submit' class="db-button button" value='Display DB Status' onclick="DisplayDBStatus();">
+                </div>
+    <!-- Database - Make a Query -->
+                <h3>Make a Query</h3>
+                <label class="label" for="querytype">Select Query: </label>
+                <select name="query-selecter" id="query-selecter" onchange="changedQuery();">
+                    <option value="">Select a Query Type</option>
+                    <option value="1">Display all Routes</option>
+                    <option value="2">Display all Routes from Specific File</option>
+                    <option value="3">Display all Points from Specific Route</option>
+                    <option value="4">Display all Points from Specific File</option>
+                    <option value="5">Display the N shortest/longest Routes from a Specific File</option>
+                </select>
+    <!-- Query 1 -->
+                <form class="queryForm" id="query1Form" action="/query1" method='post' enctype="multipart/form-data">
+                    <h4 class="form-subtitle">Display all Routes</h4>
+
+                    <label for="sort">sorted by: </label>
+                    <input type="radio" value="name" name="sort" required>
+                    <label class="radio-label" for="name">name</label>
+                    <input type="radio" value="length" name="sort" required>
+                    <label class="radio-label" for="length">length</label>
+
+                    <div class="button-containerL">
+                        <input type='submit' class="button" value='Execute Query'>
+                    </div>
+                </form>
+    <!-- Query 2 -->
+                <form class="queryForm" id="query2Form" action="/query2" method='post' enctype="multipart/form-data">
+                    <h4 class="form-subtitle">Display all Routes from Specific File</h4>
+
+                    <label class="label" for="filename">Choose File: </label>
+                    <select id="query2file-picker" class="db-file-picker" name="filename" required>
+                        <option class="keep-option" value="">Select File</option>
+                    </select><br>
+
+                    <label for="sort">sorted by: </label>
+                    <input type="radio" value="name" name="sort" required>
+                    <label class="radio-label" for="name">name</label>
+                    <input type="radio" value="length" name="sort" required>
+                    <label class="radio-label" for="length">length</label>
+
+                    <div class="button-containerL">
+                        <input type='submit' class="button" value='Execute Query'>
+                    </div>
+                </form>
+    <!-- Query 3 -->            
+                <form class="queryForm" id="query3Form" action="/query3" method='post' enctype="multipart/form-data">
+                    <h4 class="form-subtitle">Display all Points from Specific Route</h4>
+
+                    <label class="label" for="filename">Choose File: </label>
+                    <select id="query3file-picker" class="db-file-picker" name="filename" onchange="changedQuery3File();" required>
+                        <option class="keep-option" value="">Select File</option>
+                    </select><br>
+
+                    <label class="label" for="route">Choose Route: </label>
+                    <select id="q3-route-picker" class="route-picker" name="route" required>
+                        <option class="keep-option" value="">Select Route</option>
+                    </select>
+
+                    <div class="button-containerL">
+                        <input type='submit' class="button" value='Execute Query'>
+                    </div>
+                </form>
+    <!-- Query 4 -->            
+                <form class="queryForm" id="query4Form" action="/query4" method='post' enctype="multipart/form-data">
+                    <h4 class="form-subtitle">Display all Points from Specific File</h4>
+
+                    <label class="label" for="filename">Choose File: </label>
+                    <select id="query4file-picker" class="db-file-picker" name="filename" required>
+                        <option class="keep-option" value="">Select File</option>
+                    </select><br>
+
+                    <label for="sort">sorted by: </label>
+                    <input type="radio" value="name" name="sort" required>
+                    <label class="radio-label" for="name">name</label>
+                    <input type="radio" value="length" name="sort" required>
+                    <label class="radio-label" for="length">length</label>
+
+                    <div class="button-containerL">
+                        <input type='submit' class="button" value='Execute Query'>
+                    </div>
+                </form>
+    <!-- Query 5 -->            
+                <form class="queryForm" id="query5Form" action="/query5" method='post' enctype="multipart/form-data">
+                    <h4 class="form-subtitle">Display the N shortest/longest Routes from a Specific File</h4>
+
+                    <label class="label" for="filename">Choose File: </label>
+                    <select id="query5file-picker" class="db-file-picker" name="filename" required>
+                        <option class="keep-option" value="">Select File</option>
+                    </select><br>
+
+                    <label for="N-val" class="label">Value of N: </label>
+                    <input id="n-value" type="number" step="1" min="1" required><br>
+
+                    <label for="long-or-short">longest or shortest: </label>
+                    <input type="radio" value="long" name="long-or-short" required>
+                    <label class="radio-label" for="long-or-short">longest</label>
+                    <input type="radio" value="short" name="long-or-short" required>
+                    <label class="radio-label" for="long-or-short">shortest</label><br>
+
+                    <label for="sort">sorted by: </label>
+                    <input type="radio" value="name" name="sort" required>
+                    <label class="radio-label" for="name">name</label>
+                    <input type="radio" value="length" name="sort" required>
+                    <label class="radio-label" for="length">length</label>
+
+                    <div class="button-containerL">
+                        <input type='submit' class="button" value='Execute Query'>
+                    </div>
+                </form>
+    <!-- Query Table 1 -->
+                <div id="q1-table-container" class="table-container q-table routes-table-container">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 35%">
+                            <col span="1" style="width: 30%">
+                            <col span="1" style="width: 15%">
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Filename</th>
+                                <th>Route Name</th>
+                                <th>Route Length</th>
+                                <th>Route Id</th>
+                                <th>GPX Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="q1-table"></tbody>
+                    </table>
+                </div>
+    <!-- Query Table 2 -->
+                <div id="q2-table-container" class="table-container q-table">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 35%">
+                            <col span="1" style="width: 30%">
+                            <col span="1" style="width: 15%">
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Filename</th>
+                                <th>Route Name</th>
+                                <th>Route Length</th>
+                                <th>Route Id</th>
+                                <th>GPX Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="q2-table"></tbody>
+                    </table>
+                </div>
+    <!-- Query Table 3 -->
+                <div id="q3-table-container" class="table-container q-table">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 30%">
+                            <col span="1" style="width: 20%">
+                            <col span="1" style="width: 20%">
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Point Index</th>
+                                <th>Point Name</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Point Id</th>
+                                <th>Route Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="q3-table"></tbody>
+                    </table>
+                </div>
+    <!-- Query Table 4 -->
+                <div id="q4-table-container" class="table-container q-table">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 30%">
+                            <col span="1" style="width: 20%">
+                            <col span="1" style="width: 20%">
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Point Index</th>
+                                <th>Point Name</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Point Id</th>
+                                <th>Route Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="q4-table"></tbody>
+                    </table>
+                </div>
+    <!-- Query Table 5 -->
+                <div id="q5-table-container" class="table-container q-table">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 35%">
+                            <col span="1" style="width: 30%">
+                            <col span="1" style="width: 15%">
+                            <col span="1" style="width: 10%">
+                            <col span="1" style="width: 10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Filename</th>
+                                <th>Route Name</th>
+                                <th>Route Length</th>
+                                <th>Route Id</th>
+                                <th>GPX Id</th>
+                            </tr>
+                        </thead>
+                        <tbody id="q5-table"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    <!-- Footer -->
+        <div class="footer">
+            <div class="footer-main">
+                <p><b>Name: </b>Nigel Davis</p>
+                <p><b>Student ID: </b>1105413</p>
+                <p><b>Course: </b>CIS 2750</p>
+                <p><b>Due Date: </b>April 15th, 2021</p>
+            </div>
+        </div>
+        <!-- Leave me at the bottom of body -->
+        <script src="/index.js"></script>
+    </body>
+</html>

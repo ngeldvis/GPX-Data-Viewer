@@ -1,0 +1,539 @@
+
+body {
+    background-color: #fff;
+}
+
+.main {
+    width: 70%;
+    margin: auto;
+    padding-bottom: 5vh;
+    line-height: 1.75;
+    color: #262626;
+}
+
+.footer {
+    background-color: #3c5685;
+    width: 100%;
+}
+
+.footer-main {
+    width: 70%;
+    margin: auto;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+.footer-main p {
+    padding-left: 15px;
+    margin: 5px;
+}
+
+a:link:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=submit], button {
+    cursor: pointer;
+    cursor: hand;
+}
+
+input[type=radio], button {
+    margin-left: 10px;
+}
+
+a .button {
+    color: #fff;
+}
+
+/* @media(max-width: 900px) {
+    html {
+        font-size: 14px !important;
+        width: 80% !important;
+    }
+}
+@media(max-width: 480px) {
+    html {
+        font-size: 12px !important;
+        width: 90% !important;
+    }
+}
+@media(max-width: 320px) {
+    html {
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+} */
+
+/* Added CSS */
+
+#title {
+    text-align: center;
+}
+
+h3 {
+    text-align: left;
+    padding-left: 15px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+
+h4 {
+    text-align: left;
+    font-weight: bold;
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 15px;
+}
+
+h2 {
+    padding-top: 30px;
+    font-weight: bold;
+}
+
+label {
+    padding-left: 15px;
+    margin-top: 15px;
+}
+
+input[type=number] {
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+input[type=number]:hover {
+    border-color: #888;
+}
+
+input[type=number]:focus {
+    border-color: #aaa;
+}
+
+input[type=text] {
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+input[type=text]:hover {
+    border-color: #888;
+}
+
+input[type=text]:focus {
+    border-color: #aaa;
+}
+
+input[type=password] {
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+input[type=password]:hover {
+    border-color: #888;
+}
+
+input[type=password]:focus {
+    border-color: #aaa;
+}
+
+select {
+    width: 500px;
+    background: linear-gradient(to bottom, #ffffff 0%,#dddddd 100%);
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid #aaa;
+    transition: 100ms ease-in-out;
+}
+
+select:hover {
+    border-color: #888;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #aaa;
+    outline: none;
+    box-shadow: 0 0 5px #888;
+}
+
+input {
+    font: inherit;
+}
+
+#gpx-file-picker {
+    cursor: pointer;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.form-label {
+    /* width: 200px;
+    padding-right: 15px; */
+}
+
+.input-container {
+    width: 50%;
+    min-width: 500px;
+    margin: 15px;
+    margin-left: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.input-container div:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: inline-block;
+    margin-top: 0;
+    /* float: left; */
+    text-align: left;
+}
+
+.input-container div input[type=text], .input-container div select, .input-container div input[type=number], .input-container div input[type=password] {
+    width: 70%;
+    /* margin-top: 12px; */
+    display: inline-block;
+    float: right;
+    text-align: left;
+}
+
+.form-button-container {
+    text-align: center;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.form-button-container .button {
+    width: 80%;
+}
+
+.form-subtitle {
+    margin-bottom: 20px;
+}
+
+.rename-field {
+    width: 50%;
+    min-width: 500px;
+    /* margin: 15px; */
+    margin-left: 0;
+}
+
+.rename-field label {
+    margin-top: 0;
+}
+
+.rename-field input {
+    width: 70%;
+    float: right;
+}
+
+.rename-label {
+    padding-right: 15px;
+}
+
+#other-data {
+    margin: 0;
+}
+
+/* .other-panel {
+    width: 100%;
+    display: inline-block;
+}
+
+.other-panel div {
+    float: left;
+}
+
+#rename-button {
+    float: right;
+} */
+
+/* .create-gpx-panel .button {
+    margin-top: 30px;
+} */
+
+/* TABLE STUFF */
+
+.flcol1 { /* Filename */
+    width: 25%;
+}
+
+.flcol2 { /* Version */
+    width: 10%;
+}
+
+.flcol3 { /* Creator */
+    width: 20%;
+}
+
+.flcol4 { /* num waypoints */
+    width: 15%;
+}
+
+.flcol5 { /* num routes */
+    width: 15%;
+}
+
+.flcol6 { /* num tracks */
+    width: 15%;
+}
+
+.gvcol1 { /* Component */
+    width: 25%;
+}
+
+.gvcol2 { /* Name */
+    width: 30%;
+}
+
+.gvcol3 { /* num points */
+    width: 15%;
+}
+
+.gvcol4 { /* Length */
+    width: 15%;
+}
+
+.gvcol5 { /* is Loop? */
+    width: 7.5%;
+}
+
+.gvcol5 { /* Rename */
+    width: 7.5%;
+}
+
+.fpcol1 { /* File */
+    width: 20%;
+}
+
+.fpcol2 { /* Component */
+    width: 15%;
+}
+
+.fpcol3 { /* Name */
+    width: 30%;
+}
+
+.fpcol4 { /* num points */
+    width: 15%;
+}
+
+.fpcol5 { /* Length */
+    width: 10%;
+}
+
+.fpcol6 { /* is Loop? */
+    width: 10%;
+}
+
+.list-label {
+    font-weight: bold;
+    padding-right: 15px;
+    margin: 0;
+}
+
+.indent15 {
+    padding-left: 15px;
+}
+
+.table-container {
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    max-height: 40vh;
+    min-width: 50vw;
+    overflow-x: auto;
+    overflow-y:scroll;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 15px 15px 0 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+    border-spacing: 50px;
+    overflow-y: scroll;
+    margin: auto;
+}
+
+thead {
+    background-color: #3c5685;
+    color: white;
+    font-weight: bold;
+}
+
+tbody {
+    /* height: 30vh; */
+    overflow: scroll;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tr {
+    border-bottom: 1px solid #dddddd;
+    transition: 100ms ease-in-out;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.gpx-file-entry:hover {
+    background-color: #e0e0e0;
+    color: #3c5685;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+tbody a {
+    font-weight: normal;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 3px solid #3c5685;
+}
+
+#gpx-view-table-container {
+    margin-bottom: 10px;;
+}
+
+/* BUTTON STUFF */
+
+.button-container {
+    text-align: center;
+    text-decoration: none;
+}
+
+.button-containerL {
+    text-decoration: none;
+}
+
+.upload-button {
+    color: #fff;
+    background-color: #3c5685;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 40px;
+    margin: 10px;
+    transition: 100ms ease-in-out;
+}
+
+.upload-button:focus {
+    outline: none;
+}
+
+.label {
+    padding-right: 20px;
+}
+
+button, .button {
+    color: #fff;
+    background-color: #3c5685;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 40px;
+    margin: 10px;
+    transition: 100ms ease-in-out;
+}
+
+button:hover, .button:hover {
+    opacity: 0.8;
+}
+
+button:focus, .button:focus {
+    outline: none;
+}
+
+.button:visited, .button:hover, .button:link {
+    color: #fff;
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.no-pointer {
+    cursor: none;
+}
+
+.renameT-btn {
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.renameR-btn {
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#login-background {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    background-color: white;
+    opacity: 0.7;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login-form {
+    position: fixed;
+    width: 30vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 10;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+#database-stuff .form-subtitle {
+    margin-bottom: 8px;
+}
+
+.radio-label {
+    margin-top: auto;
+    padding-left: 5px;
+}
+
+.bold {
+    font-weight: bold;
+    color: #3c5685;
+}
+
+.button:disabled, .db-button:disabled {
+    background-color: #7a7a7a;
+}
