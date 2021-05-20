@@ -1,7 +1,7 @@
 # GPX Data Viewer
 
 A web app to display GPX data from GPX files uploaded to a server </br>
-This was a school project I completed in second year in my Software Systems Development and Integration (CIS 2750) course
+This was a school project I completed in second year in my Software Systems Development and Integration ([CIS 2750](https://www.uoguelph.ca/registrar/calendars/undergraduate/2018-2019/courses/cis2750.shtml)) course
 
 ### Main Acomplishments
 
