@@ -3,5 +3,8 @@
 web app to display GPX data from GPX files uploaded to a server </br>
 This was a school project I completed in second year in my Software Systems Development and Integration (CIS 2750) course
 
-Backend was developed using C, Nodejs, and Express </br>
-Frontend was developed using HTML, CSS, and JavaScript
+### Main Acomplishments
+
+* Built a web user interface using HTML, CSS, and Javascript to display GPX data to the user
+* Implemented a back-end server using C, Javascript, and Node.js used to parse GPX files allowing the user to make requests for information stored in files uploaded to the server
+* Connected the server to a MySQL relational database used to store and share GPX file information
