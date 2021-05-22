@@ -1,7 +1,6 @@
 # GPX Data Viewer
 
-A web app to display GPX data from GPX files uploaded to a server </br>
-This was a school project I completed in second year in my Software Systems Development and Integration ([CIS 2750](https://www.uoguelph.ca/registrar/calendars/undergraduate/2018-2019/courses/cis2750.shtml)) course
+A web app to display GPX data from GPX files uploaded to a server. This was a school project I completed in second year in my Software Systems Development and Integration ([CIS 2750](https://www.uoguelph.ca/registrar/calendars/undergraduate/2018-2019/courses/cis2750.shtml)) course
 
 ### Main Acomplishments
 
@@ -12,3 +11,7 @@ This was a school project I completed in second year in my Software Systems Deve
 ### What is GPX?
 
 GPX is an Extensible Markup Language (XML) GPS data format used in software applications to describe waypoints, tracks, and routes. You can learn more [here](https://www.topografix.com/gpx.asp)
+
+### Running the App
+
+First you need to make sure that you have node.js and npm installed on your system. Then enter `npm install` to install all the necessary dependencies. Finally to run the server enter `npm run dev PORTNUM` so that you can access the application at `localhost:PORTNUM`
