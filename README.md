@@ -15,3 +15,21 @@ GPX is an Extensible Markup Language (XML) GPS data format used in software appl
 ### Running the App
 
 First you need to make sure that you have node.js and npm installed on your system. Then enter `npm install` to install all the necessary dependencies. Finally to run the server enter `npm run dev PORTNUM` so that you can access the application at `localhost:PORTNUM`
+
+### Functionality
+
+Created a login form to request the database information of the user
+
+![login form](rsc/imgs/login.jpg)
+
+Once logged in (or skipped login page) the user is greeted with a list of all the GPX files currently uploaded to the server
+
+![filelog](rsc/imgs/filelog.jpg)
+
+Following that, the user can choose a file from a dropdown menu to view all the routes and tracks within that file
+
+![gpxview](rsc/imgs/gpxview.jpg)
+
+At the very bottom of the site, the user has access to various queries that they can make on the information stored in the database
+
+![database](rsc/imgs/database.jpg)
